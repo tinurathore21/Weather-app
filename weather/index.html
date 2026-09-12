@@ -1,49 +1,172 @@
+
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Weather APP</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  </head>
-  <body>
+
+    <title>My Weather App</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">WeatherApp</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About this app</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Delhi</a></li>
-                  <li><a class="dropdown-item" href="#">Seattle</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Mumbai</a></li>
+
+            <a class="navbar-brand" href="#">
+                WeatherApp
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            About this app
+                        </a>
+                    </li>
+
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Usage guide</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
+
+                <!-- Search -->
+                <form class="d-flex" id="searchForm">
+
+                    <input
+                        class="form-control me-2"
+                        type="search"
+                        id="cityInput"
+                        placeholder="Enter city"
+                        aria-label="Search">
+
+                    <button
+                        class="btn btn-outline-success"
+                        type="submit">
+                        Search
+                    </button>
+
+                </form>
+
+            </div>
         </div>
-      </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+    </nav>
+
+
+    <!-- Main Weather Section -->
+    <div class="container">
+
+        <!-- City Name -->
+        <h1 class="my-4 text-center" id="cityName">
+            Weather for Delhi
+        </h1>
+
+
+        <!-- Weather Cards -->
+        <div class="row text-center">
+
+            <!-- Temperature -->
+            <div class="col-md-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">
+                            Temperature
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <h2 id="temperature">
+                            -- °C
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Humidity -->
+            <div class="col-md-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">
+                            Humidity
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <h2 id="humidity">
+                            -- %
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Wind Speed -->
+            <div class="col-md-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">
+                            Wind Speed
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <h2 id="windSpeed">
+                            -- km/h
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwxHj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Our JavaScript -->
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+```
