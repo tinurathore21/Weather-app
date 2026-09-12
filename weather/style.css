@@ -1,0 +1,873 @@
+/* =========================================
+   WEATHER APP - MODERN GLASS DESIGN
+========================================= */
+
+
+/* =========================================
+   1. PAGE
+========================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    color: white;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 35, 70, 0.25),
+            rgba(0, 10, 30, 0.40)
+        ),
+        url("images/weather-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+}
+
+
+/* =========================================
+   2. NAVBAR
+========================================= */
+
+.navbar {
+    margin: 20px 30px 0 30px;
+
+    padding: 12px 25px;
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.15) !important;
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================
+   3. WEATHER APP LOGO
+========================================= */
+
+.navbar-brand {
+    color: white !important;
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   4. NAVBAR LINKS
+========================================= */
+
+.navbar .nav-link {
+    color: white !important;
+
+    font-weight: 500;
+
+    margin-left: 8px;
+
+    padding: 9px 14px !important;
+
+    border-radius: 10px;
+
+    transition: all 0.3s ease;
+}
+
+
+.navbar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   5. SEARCH FORM
+========================================= */
+
+#searchForm {
+    display: flex;
+
+    align-items: center;
+}
+
+
+/* Search input */
+
+#cityInput {
+    width: 250px;
+
+    height: 48px;
+
+    padding: 0 18px;
+
+    color: white !important;
+
+    background: rgba(255, 255, 255, 0.15) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+
+    border-radius: 25px 0 0 25px !important;
+
+    outline: none;
+
+    box-shadow: none !important;
+}
+
+
+/* Placeholder */
+
+#cityInput::placeholder {
+    color: rgba(255, 255, 255, 0.80);
+}
+
+
+/* Input focus */
+
+#cityInput:focus {
+    background: rgba(255, 255, 255, 0.22) !important;
+
+    border-color: rgba(255, 255, 255, 0.60) !important;
+}
+
+
+/* Search button */
+
+#searchForm button {
+    height: 48px;
+
+    padding: 0 22px;
+
+    border: none !important;
+
+    border-radius: 0 25px 25px 0 !important;
+
+    background: rgba(0, 123, 255, 0.85) !important;
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+
+/* Search hover */
+
+#searchForm button:hover {
+    background: rgba(0, 123, 255, 1) !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================
+   6. MAIN WEATHER CONTAINER
+========================================= */
+
+.weather-container {
+    width: 90%;
+    max-width: 900px;
+
+    margin: 45px auto 40px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   7. CITY NAME
+========================================= */
+
+#cityName {
+
+    margin: 0;
+
+    color: white !important;
+
+    font-size: 3.5rem;
+
+    font-weight: 700;
+
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================================
+   8. SUBTITLE
+========================================= */
+
+.subtitle {
+
+    margin-top: 10px;
+
+    margin-bottom: 35px;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    font-size: 1.15rem;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   9. MAIN WEATHER CARD
+========================================= */
+
+.weather-card {
+
+    padding: 35px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.20);
+
+    transition: all 0.4s ease;
+}
+
+
+/* Card hover */
+
+.weather-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   10. TEMPERATURE SECTION
+========================================= */
+
+.weather-main {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 60px;
+
+    padding-bottom: 35px;
+}
+
+
+/* =========================================
+   11. WEATHER ICON
+========================================= */
+
+.weather-icon {
+
+    width: 140px;
+
+    height: 140px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    font-size: 4.5rem;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    animation: floating 4s ease-in-out infinite;
+}
+
+
+/* =========================================
+   12. ICON ANIMATION
+========================================= */
+
+@keyframes floating {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   13. TEMPERATURE
+========================================= */
+
+#temperature {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 5rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.30);
+}
+
+
+/* Temperature description */
+
+.location {
+
+    margin-top: 15px;
+
+    color: rgba(255, 255, 255, 0.80);
+
+    font-size: 1rem;
+}
+
+
+/* =========================================
+   14. WEATHER DETAILS AREA
+========================================= */
+
+.weather-details {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================
+   15. HUMIDITY + WIND
+========================================= */
+
+.weather-detail {
+
+    flex: 1;
+
+    max-width: 300px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px 25px;
+
+    text-align: left;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
+    transition: all 0.3s ease;
+}
+
+
+/* Detail hover */
+
+.weather-detail:hover {
+
+    background: rgba(255, 255, 255, 0.20);
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   16. DETAIL ICON
+========================================= */
+
+.detail-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 1.7rem;
+}
+
+
+/* =========================================
+   17. DETAIL TEXT
+========================================= */
+
+.weather-detail p {
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.70);
+
+    font-size: 0.9rem;
+}
+
+
+.weather-detail h3 {
+
+    margin: 4px 0 0;
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   18. MOBILE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+
+        margin: 12px;
+
+        padding: 15px 18px;
+
+        border-radius: 20px;
+    }
+
+
+    #searchForm {
+
+        margin-top: 15px;
+
+        width: 100%;
+    }
+
+
+    #cityInput {
+
+        width: 100%;
+    }
+
+
+    .weather-container {
+
+        width: 92%;
+
+        margin-top: 40px;
+    }
+
+
+    #cityName {
+
+        font-size: 2.3rem;
+    }
+
+
+    .weather-card {
+
+        padding: 30px 20px;
+    }
+
+
+    .weather-main {
+
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    .weather-icon {
+
+        width: 120px;
+
+        height: 120px;
+
+        font-size: 4rem;
+    }
+
+
+    #temperature {
+
+        font-size: 4rem;
+    }
+
+
+    .weather-details {
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .weather-detail {
+
+        max-width: none;
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================================
+   19. SMALL PHONES
+========================================= */
+
+@media (max-width: 480px) {
+
+    #cityName {
+
+        font-size: 2rem;
+    }
+
+
+    #temperature {
+
+        font-size: 3.3rem;
+    }
+
+
+    .weather-icon {
+
+        width: 110px;
+
+        height: 110px;
+
+        font-size: 3.5rem;
+    }
+}
+
+/* =========================================
+   ABOUT APP MODAL
+========================================= */
+
+.about-modal {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    z-index: 9999;
+
+    padding: 20px;
+}
+
+
+/* Show modal */
+
+.about-modal.show {
+
+    display: flex;
+
+}
+
+
+/* =========================================
+   ABOUT CARD
+========================================= */
+
+.about-card {
+
+    position: relative;
+
+    width: 90%;
+
+    max-width: 550px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35);
+
+    color: white;
+
+    animation: aboutAppear 0.3s ease;
+
+}
+
+
+/* =========================================
+   POPUP ANIMATION
+========================================= */
+
+@keyframes aboutAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px) scale(0.95);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.close-about {
+
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    font-size: 28px;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.close-about:hover {
+
+    background: rgba(255, 255, 255, 0.30);
+
+    transform: rotate(90deg);
+
+}
+
+
+/* =========================================
+   ABOUT ICON
+========================================= */
+
+.about-icon {
+
+    font-size: 3.5rem;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================================
+   ABOUT TITLE
+========================================= */
+
+.about-card h2 {
+
+    margin-bottom: 12px;
+
+    font-size: 2rem;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.about-description {
+
+    color: rgba(255, 255, 255, 0.85);
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================
+   INFO ITEMS
+========================================= */
+
+.about-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+.about-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+}
+
+
+.about-item > span {
+
+    font-size: 1.8rem;
+
+}
+
+
+.about-item strong {
+
+    font-size: 1rem;
+
+}
+
+
+.about-item p {
+
+    margin: 3px 0 0;
+
+    color: rgba(255, 255, 255, 0.70);
+
+    font-size: 0.85rem;
+
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.about-footer {
+
+    margin-top: 25px;
+    margin-bottom: 0;
+
+    color: rgba(255, 255, 255, 0.60);
+
+    font-size: 0.85rem;
+
+}
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+#errorMessage {
+    display: none;
+
+    margin: 10px 0 20px;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    background: rgba(220, 53, 69, 0.25);
+
+    border: 1px solid rgba(255, 120, 130, 0.5);
+
+    color: white;
+
+    font-size: 0.95rem;
+
+    font-weight: 500;
+}

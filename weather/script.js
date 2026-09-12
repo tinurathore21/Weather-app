@@ -5,7 +5,20 @@ searchForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const city = cityInput.value;
+    const city = cityInput.value.trim();
+
+    // Check if the input is empty
+
+    if (city === "") {
+
+        showError("Please enter a city name.");
+
+        return;
+    }
+
+    // Clear any previous error
+
+    clearError();
 
     getCoordinates(city);
 });
@@ -13,49 +26,201 @@ searchForm.addEventListener("submit", function(event) {
 
 async function getCoordinates(city) {
 
-    const url =
-        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+    try {
 
-    const response = await fetch(url);
+        const url =
+            `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
 
-    const data = await response.json();
+        const response = await fetch(url);
 
-    console.log(data);
 
-    const latitude = data.results[0].latitude;
-    const longitude = data.results[0].longitude;
+        // Check if the API request failed
 
-    console.log("Latitude:", latitude);
-    console.log("Longitude:", longitude);
+        if (!response.ok) {
 
-    document.getElementById("cityName").textContent =
-        "Weather for " + city;
+            throw new Error("Geocoding API request failed.");
 
-    getWeather(latitude, longitude);
+        }
+
+
+        const data = await response.json();
+
+        console.log(data);
+
+
+        // Check if no city was found
+
+        if (!data.results || data.results.length === 0) {
+
+            showError("City not found. Please check the spelling and try again.");
+
+            return;
+
+        }
+
+
+        const latitude = data.results[0].latitude;
+
+        const longitude = data.results[0].longitude;
+
+
+        console.log("Latitude:", latitude);
+
+        console.log("Longitude:", longitude);
+
+
+        document.getElementById("cityName").textContent =
+            "Weather for " + city;
+
+
+        getWeather(latitude, longitude);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showError("Unable to find the city. Please check your internet connection and try again.");
+
+    }
 }
 
 
 async function getWeather(latitude, longitude) {
 
-    const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`;
+    try {
 
-    const response = await fetch(url);
+        const url =
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`;
 
-    const data = await response.json();
+        const response = await fetch(url);
 
-    console.log(data);
 
-    const temperature = data.current.temperature_2m;
-    const humidity = data.current.relative_humidity_2m;
-    const windSpeed = data.current.wind_speed_10m;
+        // Check if weather API request failed
 
-    document.getElementById("temperature").textContent =
-        temperature + " °C";
+        if (!response.ok) {
 
-    document.getElementById("humidity").textContent =
-        humidity + " %";
+            throw new Error("Weather API request failed.");
 
-    document.getElementById("windSpeed").textContent =
-        windSpeed + " km/h";
+        }
+
+
+        const data = await response.json();
+
+        console.log(data);
+
+
+        // Get weather data
+
+        const temperature =
+            data.current.temperature_2m;
+
+        const humidity =
+            data.current.relative_humidity_2m;
+
+        const windSpeed =
+            data.current.wind_speed_10m;
+
+        const weatherCode =
+            data.current.weather_code;
+
+
+        // Display temperature
+
+        document.getElementById("temperature").textContent =
+            temperature + " °C";
+
+
+        // Display humidity
+
+        document.getElementById("humidity").textContent =
+            humidity + " %";
+
+
+        // Display wind speed
+
+        document.getElementById("windSpeed").textContent =
+            windSpeed + " km/h";
+
+
+        // Clear previous error
+
+        clearError();
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Unable to fetch weather data. Please try again."
+        );
+
+    }
+}
+
+// =========================================
+// ABOUT APP
+// =========================================
+
+const aboutLink = document.getElementById("aboutLink");
+
+const aboutModal = document.getElementById("aboutModal");
+
+const closeAbout = document.getElementById("closeAbout");
+
+
+// Open About popup
+
+aboutLink.addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    aboutModal.classList.add("show");
+
+});
+
+
+// Close About popup
+
+closeAbout.addEventListener("click", function() {
+
+    aboutModal.classList.remove("show");
+
+});
+
+
+// Close when clicking outside the card
+
+aboutModal.addEventListener("click", function(event) {
+
+    if (event.target === aboutModal) {
+
+        aboutModal.classList.remove("show");
+
+    }
+
+});
+
+function clearError() {
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+    errorMessage.textContent = "";
+
+    errorMessage.style.display = "none";
+}
+
+function showError(message) {
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+    errorMessage.textContent = message;
+
+    errorMessage.style.display = "block";
 }

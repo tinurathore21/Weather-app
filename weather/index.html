@@ -3,28 +3,56 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>My Weather App</title>
 
+
     <!-- Bootstrap CSS -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">
+
+
+    <!-- Our CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+    <!-- =================================
+         NAVBAR
+    ================================== -->
+
+    <nav class="navbar navbar-expand-lg">
+
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="#">
-                WeatherApp
+
+            <!-- Logo -->
+
+            <a
+                class="navbar-brand"
+                href="#">
+
+                🌤️ WeatherApp
+
             </a>
+
+
+            <!-- Mobile menu button -->
 
             <button
                 class="navbar-toggler"
@@ -39,134 +67,298 @@
 
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Navbar content -->
+
+            <div
+                class="collapse navbar-collapse"
+                id="navbarSupportedContent">
+
+
+                <!-- Navigation links -->
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+
+                        <a
+                            class="nav-link active"
+                            href="#">
+
                             Home
+
                         </a>
+
                     </li>
 
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+
+                        <a
+                            class="nav-link"
+                            href="#"
+                            id="aboutLink">
+
                             About this app
+
                         </a>
+
                     </li>
 
                 </ul>
 
-                <!-- Search -->
-                <form class="d-flex" id="searchForm">
+
+                <!-- =================================
+                     SEARCH
+                ================================== -->
+
+                <form
+                    class="d-flex"
+                    id="searchForm">
+
 
                     <input
-                        class="form-control me-2"
+                        class="form-control"
                         type="search"
                         id="cityInput"
                         placeholder="Enter city"
                         aria-label="Search">
 
+
                     <button
-                        class="btn btn-outline-success"
                         type="submit">
+
                         Search
+
                     </button>
 
                 </form>
 
             </div>
+
         </div>
+
     </nav>
 
 
-    <!-- Main Weather Section -->
-    <div class="container">
 
-        <!-- City Name -->
-        <h1 class="my-4 text-center" id="cityName">
+    <!-- =================================
+         MAIN WEATHER SECTION
+    ================================== -->
+
+    <main class="weather-container">
+
+
+        <!-- City name -->
+
+        <h1 id="cityName">
             Weather for Delhi
         </h1>
+        <p id="errorMessage"></p>
 
 
-        <!-- Weather Cards -->
-        <div class="row text-center">
+        <!-- Subtitle -->
 
-            <!-- Temperature -->
-            <div class="col-md-4">
-                <div class="card mb-4 rounded-3 shadow-sm">
+        <p class="subtitle">
+            Current weather conditions
+        </p>
 
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">
-                            Temperature
-                        </h4>
-                    </div>
 
-                    <div class="card-body">
-                        <h2 id="temperature">
-                            -- °C
-                        </h2>
-                    </div>
+
+        <!-- =================================
+             MAIN WEATHER CARD
+        ================================== -->
+
+        <div class="weather-card">
+
+
+            <!-- =================================
+                 TEMPERATURE + ICON
+            ================================== -->
+
+            <div class="weather-main">
+
+
+                <!-- Weather icon -->
+
+                <div class="weather-icon" id="weatherIcon">
+
+                    ☀️
 
                 </div>
+
+
+                <!-- Temperature -->
+
+                <div class="temperature-section">
+
+                    <h2 id="temperature">
+                        -- °C
+                    </h2>
+
+
+                    <p class="location">
+                        Current temperature
+                    </p>
+
+                </div>
+
             </div>
 
 
-            <!-- Humidity -->
-            <div class="col-md-4">
-                <div class="card mb-4 rounded-3 shadow-sm">
 
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">
+            <!-- =================================
+                 WEATHER DETAILS
+            ================================== -->
+
+            <div class="weather-details">
+
+
+                <!-- =================================
+                     HUMIDITY
+                ================================== -->
+
+                <div class="weather-detail">
+
+
+                    <div class="detail-icon">
+
+                        💧
+
+                    </div>
+
+
+                    <div>
+
+                        <p>
                             Humidity
-                        </h4>
-                    </div>
+                        </p>
 
-                    <div class="card-body">
-                        <h2 id="humidity">
+
+                        <h3 id="humidity">
                             -- %
-                        </h2>
+                        </h3>
+
                     </div>
 
                 </div>
-            </div>
 
 
-            <!-- Wind Speed -->
-            <div class="col-md-4">
-                <div class="card mb-4 rounded-3 shadow-sm">
 
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">
+                <!-- =================================
+                     WIND SPEED
+                ================================== -->
+
+                <div class="weather-detail">
+
+
+                    <div class="detail-icon">
+
+                        💨
+
+                    </div>
+
+
+                    <div>
+
+                        <p>
                             Wind Speed
-                        </h4>
-                    </div>
+                        </p>
 
-                    <div class="card-body">
-                        <h2 id="windSpeed">
+
+                        <h3 id="windSpeed">
                             -- km/h
-                        </h2>
+                        </h3>
+
                     </div>
 
                 </div>
+
+
             </div>
 
         </div>
 
+    </main>
+
+    <!-- About App Popup -->
+
+    <div id="aboutModal" class="about-modal">
+    
+        <div class="about-card">
+    
+            <button id="closeAbout" class="close-about">
+                &times;
+            </button>
+    
+            <div class="about-icon">
+                🌤️
+            </div>
+    
+            <h2>About WeatherApp</h2>
+    
+            <p class="about-description">
+                WeatherApp is a simple and modern weather application
+                that lets you search for a city and view its current
+                weather conditions.
+            </p>
+    
+            <div class="about-info">
+    
+                <div class="about-item">
+                    <span>🌡️</span>
+                    <div>
+                        <strong>Temperature</strong>
+                        <p>View the current temperature of the selected city.</p>
+                    </div>
+                </div>
+    
+                <div class="about-item">
+                    <span>💧</span>
+                    <div>
+                        <strong>Humidity</strong>
+                        <p>Check the current humidity level.</p>
+                    </div>
+                </div>
+    
+                <div class="about-item">
+                    <span>💨</span>
+                    <div>
+                        <strong>Wind Speed</strong>
+                        <p>See the current wind speed.</p>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <p class="about-footer">
+                Powered by Open-Meteo API
+            </p>
+    
+        </div>
+    
     </div>
 
+    <!-- =================================
+         BOOTSTRAP JAVASCRIPT
+    ================================== -->
 
-    <!-- Bootstrap JavaScript -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwxHj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous">
     </script>
 
-    <!-- Our JavaScript -->
+
+    <!-- =================================
+         OUR JAVASCRIPT
+    ================================== -->
+
     <script src="script.js"></script>
+
 
 </body>
 
 </html>
 ```
+
