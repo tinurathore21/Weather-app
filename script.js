@@ -1,14 +1,17 @@
+// =========================================
+// CITY SEARCH
+// =========================================
+
 const searchForm = document.getElementById("searchForm");
 const cityInput = document.getElementById("cityInput");
 
-searchForm.addEventListener("submit", function(event) {
+searchForm.addEventListener("submit", function (event) {
 
     event.preventDefault();
 
     const city = cityInput.value.trim();
 
-    // Check if the input is empty
-
+    // Check if input is empty
     if (city === "") {
 
         showError("Please enter a city name.");
@@ -16,13 +19,16 @@ searchForm.addEventListener("submit", function(event) {
         return;
     }
 
-    // Clear any previous error
-
+    // Clear previous error
     clearError();
 
     getCoordinates(city);
 });
 
+
+// =========================================
+// GET CITY COORDINATES
+// =========================================
 
 async function getCoordinates(city) {
 
@@ -34,8 +40,7 @@ async function getCoordinates(city) {
         const response = await fetch(url);
 
 
-        // Check if the API request failed
-
+        // Check if API request failed
         if (!response.ok) {
 
             throw new Error("Geocoding API request failed.");
@@ -48,31 +53,32 @@ async function getCoordinates(city) {
         console.log(data);
 
 
-        // Check if no city was found
-
+        // Check if city was not found
         if (!data.results || data.results.length === 0) {
 
-            showError("City not found. Please check the spelling and try again.");
+            showError(
+                "City not found. Please check the spelling and try again."
+            );
 
             return;
-
         }
 
 
+        // Get latitude and longitude
         const latitude = data.results[0].latitude;
-
         const longitude = data.results[0].longitude;
 
 
         console.log("Latitude:", latitude);
-
         console.log("Longitude:", longitude);
 
 
+        // Update city name
         document.getElementById("cityName").textContent =
             "Weather for " + city;
 
 
+        // Get weather
         getWeather(latitude, longitude);
 
     }
@@ -81,11 +87,17 @@ async function getCoordinates(city) {
 
         console.error(error);
 
-        showError("Unable to find the city. Please check your internet connection and try again.");
+        showError(
+            "Unable to find the city. Please check your internet connection and try again."
+        );
 
     }
 }
 
+
+// =========================================
+// GET WEATHER DATA
+// =========================================
 
 async function getWeather(latitude, longitude) {
 
@@ -98,7 +110,6 @@ async function getWeather(latitude, longitude) {
 
 
         // Check if weather API request failed
-
         if (!response.ok) {
 
             throw new Error("Weather API request failed.");
@@ -112,7 +123,6 @@ async function getWeather(latitude, longitude) {
 
 
         // Get weather data
-
         const temperature =
             data.current.temperature_2m;
 
@@ -126,28 +136,111 @@ async function getWeather(latitude, longitude) {
             data.current.weather_code;
 
 
-        // Display temperature
+        // =========================================
+        // DISPLAY WEATHER DATA
+        // =========================================
 
         document.getElementById("temperature").textContent =
             temperature + " °C";
 
 
-        // Display humidity
-
         document.getElementById("humidity").textContent =
             humidity + " %";
 
-
-        // Display wind speed
 
         document.getElementById("windSpeed").textContent =
             windSpeed + " km/h";
 
 
-        // Clear previous error
+        // =========================================
+        // CHANGE WEATHER ICON
+        // =========================================
 
+        const weatherIcon =
+            document.getElementById("weatherIcon");
+
+
+        if (weatherCode === 0) {
+
+            // Clear sky
+            weatherIcon.textContent = "☀️";
+
+        }
+
+        else if (weatherCode === 1 || weatherCode === 2) {
+
+            // Mainly clear / partly cloudy
+            weatherIcon.textContent = "🌤️";
+
+        }
+
+        else if (weatherCode === 3) {
+
+            // Overcast
+            weatherIcon.textContent = "☁️";
+
+        }
+
+        else if (
+            weatherCode === 45 ||
+            weatherCode === 48
+        ) {
+
+            // Fog
+            weatherIcon.textContent = "🌫️";
+
+        }
+
+        else if (
+            weatherCode >= 51 &&
+            weatherCode <= 67
+        ) {
+
+            // Drizzle / rain
+            weatherIcon.textContent = "🌧️";
+
+        }
+
+        else if (
+            weatherCode >= 71 &&
+            weatherCode <= 77
+        ) {
+
+            // Snow
+            weatherIcon.textContent = "❄️";
+
+        }
+
+        else if (
+            weatherCode >= 80 &&
+            weatherCode <= 82
+        ) {
+
+            // Rain showers
+            weatherIcon.textContent = "🌦️";
+
+        }
+
+        else if (
+            weatherCode >= 95 &&
+            weatherCode <= 99
+        ) {
+
+            // Thunderstorm
+            weatherIcon.textContent = "⛈️";
+
+        }
+
+        else {
+
+            // Default
+            weatherIcon.textContent = "🌤️";
+
+        }
+
+
+        // Weather loaded successfully
         clearError();
-
 
     }
 
@@ -162,48 +255,21 @@ async function getWeather(latitude, longitude) {
     }
 }
 
+
 // =========================================
-// ABOUT APP
+// ERROR HANDLING
 // =========================================
 
-const aboutLink = document.getElementById("aboutLink");
+function showError(message) {
 
-const aboutModal = document.getElementById("aboutModal");
+    const errorMessage =
+        document.getElementById("errorMessage");
 
-const closeAbout = document.getElementById("closeAbout");
+    errorMessage.textContent = message;
 
+    errorMessage.style.display = "block";
+}
 
-// Open About popup
-
-aboutLink.addEventListener("click", function(event) {
-
-    event.preventDefault();
-
-    aboutModal.classList.add("show");
-
-});
-
-
-// Close About popup
-
-closeAbout.addEventListener("click", function() {
-
-    aboutModal.classList.remove("show");
-
-});
-
-
-// Close when clicking outside the card
-
-aboutModal.addEventListener("click", function(event) {
-
-    if (event.target === aboutModal) {
-
-        aboutModal.classList.remove("show");
-
-    }
-
-});
 
 function clearError() {
 
@@ -215,12 +281,49 @@ function clearError() {
     errorMessage.style.display = "none";
 }
 
-function showError(message) {
 
-    const errorMessage =
-        document.getElementById("errorMessage");
+// =========================================
+// ABOUT APP
+// =========================================
 
-    errorMessage.textContent = message;
+const aboutLink =
+    document.getElementById("aboutLink");
 
-    errorMessage.style.display = "block";
-}
+const aboutModal =
+    document.getElementById("aboutModal");
+
+const closeAbout =
+    document.getElementById("closeAbout");
+
+
+// Open About popup
+
+aboutLink.addEventListener("click", function (event) {
+
+    event.preventDefault();
+
+    aboutModal.classList.add("show");
+
+});
+
+
+// Close About popup
+
+closeAbout.addEventListener("click", function () {
+
+    aboutModal.classList.remove("show");
+
+});
+
+
+// Close when clicking outside the card
+
+aboutModal.addEventListener("click", function (event) {
+
+    if (event.target === aboutModal) {
+
+        aboutModal.classList.remove("show");
+
+    }
+
+});
